@@ -1,3 +1,7 @@
+# 背景
+- fork自experiencor/keras-yolo3，修复了python3.6上的opencv3不兼容问题
+- 再其基础上添加新的功能。并进行封装。
+
 # YOLO3 (Detection, Training, and Evaluation)
 
 ## Todo list:
