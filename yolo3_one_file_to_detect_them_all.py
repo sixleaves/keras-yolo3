@@ -265,13 +265,13 @@ def preprocess_input(image, net_h, net_w):
     else:
         new_w = (new_w * net_h)/new_h
         new_h = net_h
-
+    new_h, new_w = int(new_h), int(new_w)
     # resize the image to the new size
     resized = cv2.resize(image[:,:,::-1]/255., (new_w, new_h))
 
     # embed the image into the standard letter box
     new_image = np.ones((net_h, net_w, 3)) * 0.5
-    new_image[(net_h-new_h)/2:(net_h+new_h)/2, (net_w-new_w)/2:(net_w+new_w)/2, :] = resized
+    new_image[int((net_h-new_h)/2):int((net_h+new_h)/2), int((net_w-new_w)/2):int((net_w+new_w)/2), :] = resized
     new_image = np.expand_dims(new_image, 0)
 
     return new_image
@@ -294,6 +294,7 @@ def decode_netout(netout, anchors, obj_thresh, nms_thresh, net_h, net_w):
         col = i % grid_w
         
         for b in range(nb_box):
+            row,col,b = int(row), int(col), int(b)
             # 4th element is objectness score
             objectness = netout[row, col, b, 4]
             
